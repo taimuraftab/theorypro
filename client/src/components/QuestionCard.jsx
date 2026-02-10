@@ -18,15 +18,25 @@ const QuestionCard = ({ questionData, selected, onAnswer }) => {
 
   return (
     <div className="bg-white rounded-3xl border border-slate-200 shadow-lg p-6 md:p-8 max-w-4xl mx-auto">
-      {questionData.image && (
-        <div className="mb-6 flex justify-center">
-          <img
-            src={`../assets/${questionData.image}`}
-            alt="question visual"
-            className="max-h-64 rounded-xl object-contain shadow-sm"
-          />
-        </div>
-      )}
+      {questionData.image &&
+        (() => {
+          const images = import.meta.glob("../assets/*", {
+            eager: true,
+            import: "default",
+          });
+          const imgKey = `../assets/${questionData.image}`;
+          const imgSrc = images[imgKey];
+
+          return imgSrc ? (
+            <div className="mb-6 flex justify-center">
+              <img
+                src={imgSrc}
+                alt="question visual"
+                className="max-h-64 rounded-xl object-contain shadow-sm"
+              />
+            </div>
+          ) : null;
+        })()}
       <h3 className="text-lg md:text-xl font-semibold text-slate-800 mb-6 leading-relaxed">
         {questionData.question}
       </h3>
