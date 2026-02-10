@@ -9,7 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 const allowedOrigins = [
-  "https://theorypro.onrender.com/",
+  "https://theorypro.onrender.com",
 ];
 app.use(
   cors({
